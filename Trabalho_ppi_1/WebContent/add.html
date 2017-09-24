@@ -1,0 +1,171 @@
+<%@page import="ppi.agenda.DAO.ContatoDAO"%>
+<%@page import="ppi.agenda.model.Contato"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.*"%>
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>CRUD com Bootstrap 3</title>
+ 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+
+<script>
+$(function() {
+    $( "#calendario" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    });
+});
+</script>
+
+
+<script>
+$(function() {
+    $( "#datadevolucao" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    });
+});
+</script>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/style.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+    function optionCheck(){
+        var option = document.getElementById("options").value;
+        if(option == "e"){
+        	alert(option);
+
+        	< 
+            document.getElementById("di").style.visibility ="visible";
+        }
+       
+    }
+</script>
+ 
+
+</head>
+<body>
+
+
+
+
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+   <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Web Dev Academy</a>
+   </div>
+   <div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+     <li><a href="#">In&iacute;cio</a></li>
+     <li><a href="#">Op&ccedil;&otilde;es</a></li>
+     <li><a href="#">Perfil</a></li>
+     <li><a href="#">Ajuda</a></li>
+    </ul>
+   </div>
+  </div>
+ </nav>
+ 
+ <div id="main" class="container-fluid">
+  
+  <h3 class="page-header text-center"> Alugar carro</h3>
+  
+  <form action="index.html">
+  	<div class="container">
+  	  <div class="form-group col-md-6">
+  	  	<label for="datare">Data de retirada</label>
+        <input type="text" class="form-control" id="calendario" />
+  	  </div>
+  	  
+  	  
+  	  <div class="form-group col-md-6">
+  	  	<label for="exampleInputEmail1">Horário de retirada</label>
+  	  	<input type="text" class="form-control" id="horaretirada" placeholder="22:00">
+  	  </div>
+	
+  	  
+	  <div class="form-group col-md-6">
+  	  	<label for="exampleInputEmail1">Data de devolução</label>
+  	  	<input type="text" class="form-control" id="datadevolucao">
+  	  </div>
+  	 
+	
+  	  <div class="form-group col-md-6">
+  	  	<label for="exampleInputEmail1">Horário de devolução</label>
+  	  	<input type="text" class="form-control" id="horariodevolucao" placeholder="22:00">
+  	  </div>
+	
+	
+        
+        <div class="form-group col-md-6">
+        <label for ="">Tipo de carro</label>
+            <select class="form-control" id="options"  onchange="optionCheck()">
+               <option> Selecione o tipo </option>
+                <option value="e">Econômico</option>
+                <option value="s">Intermediário</option>
+                <option value="m">SUV</option>
+                <option value="l">Executivo</option>
+            </select>
+        </div>
+      
+        <div class="form-group col-md-6" id="di" style="visibility:hidden;">
+        <label for ="">Modelo</label>
+            <select class="form-control" >
+                <option value="e">Fiat uno</option>
+                <option value="s">Fiat mobi</option>
+                <option value="m">Chevrolet onix</option>
+                <option value="l">Ford ka</option>
+            </select>
+        </div>
+        
+        <div id="hiddenDiv" style="height:100px;width:300px;border:1px;visibility:hidden;">
+Eu estou visível agora!
+</div>
+       
+    </div>
+	
+	
+	
+	
+	  <div class="col-md-12">
+	  	<br> 
+	  	<br>
+	  	<button type="submit" class="btn btn-primary">Salvar</button>
+		<a href="template.html" class="btn btn-default">Cancelar</a>
+	  </div>
+	</div>
+	
+	
+
+
+  </form>
+ </div>
+ 
+
+ <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
