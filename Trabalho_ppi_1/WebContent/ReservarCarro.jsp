@@ -1,5 +1,5 @@
 <%@page import="ppi.agenda.DAO.ContatoDAO"%>
-<%@page import="ppi.agenda.model.Contato"%>
+<%@page import="ppi.agenda.model.Cliente"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -141,20 +141,20 @@
 
 
 
-	<div id="main" class="container-fluid">  
-	
-		<br>
-		<br>
-		
-				<p class="bg-warning text-center"> <strong> ${msg } </strong> </p>
-		
+	<div id="main" class="container-fluid">
+
+		<br> <br>
+
+		<p class="bg-warning text-center">
+			<strong> ${msg } </strong>
+		</p>
+
 
 		<h3 class="page-header text-center">Reservar Carro</h3>
 
-		<form action="ControllerServlet" method="post">
-			
-			<fieldset>
-		
+		<form action="ControllerServlet" method="get">
+
+
 			<div class="container">
 				<div class="form-group col-md-6">
 					<label for="datare">Data de retirada</label> <input type="text"
@@ -195,21 +195,36 @@
 					</select>
 				</div>
 
+				<br> <input type="hidden" name="logica" value="DadosReserva" />
 
-				<input type="hidden" name="logica" value="DadosReserva" />
+				<%
+					Cliente cl = (Cliente) request.getAttribute("cliente");
+							
+				%>
+
+
+				<input type="hidden" value=<%=cl.getNome() %> name="clientenome" /> <input
+					type="hidden" value=<%=cl.getId() %> name="clienteid" /> <input
+					type="hidden" value=<%=cl.getCpf() %> name="clientecpf" /> <input
+					type="hidden" value=<%=cl.getEndereco() %> name="clienteendereco" /> <input
+					type="hidden" value=<%=cl.getTelefone() %> name="clientetelefone" /> <input
+					type="hidden" value=<%=cl.getEmail() %>name="clienteemail" /> <input
+					type="hidden" value=<%=cl.getDataNascimentoString() %> name="clientenascimento" />
+
+
+
 
 				<div class="col-md-12">
 					<br> <br>
-					<button type="submit" class="btn btn-primary">Salvar</button>
-					<a href="template.html" class="btn btn-default">Cancelar</a>
+					<button type="submit" class="btn btn-primary">Prosseguir</button>
+
 				</div>
 			</div>
 
-</fieldset>
 
 
 		</form>
-	</div>  
+	</div>
 
 
 	<script src="js/bootstrap.min.js"></script>

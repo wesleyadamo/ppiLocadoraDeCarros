@@ -16,43 +16,48 @@ public class AlugarCarro implements Logica {
 
 		String[] dados = new String[5];
 
+		// recupera dos dados da reserva
 		dados[0] = req.getParameter("dataretirada");
 		dados[1] = req.getParameter("horaretirada");
 		dados[2] = req.getParameter("datadevolucao");
 		dados[3] = req.getParameter("horadevolucao");
 		dados[4] = req.getParameter("combo");
 		
-		String nome = req.getParameter("nome");
-		String cpf = req.getParameter("cpf");
-		String email =  req.getParameter("email");
-		String endereco =  req.getParameter("endereco");
-		String carroSelect =  req.getParameter("carro");
-		String telefone = req.getParameter("telefone");
-		String dataNascimento = req.getParameter("dataNascimento");
+		
+		// recupera os dados do cliente
+		String nome = req.getParameter("clientenome");
+		String cpf = req.getParameter("clientecpf");
+		String endereco = req.getParameter("clienteendereco");
+		String email = req.getParameter("clienteemail");
+		String carroSelect = req.getParameter("carro");
+		String telefone = req.getParameter("clientetelefone");
+		String dataNascimento = req.getParameter("clientenascimento");
+
 		
 		Cliente clientenovo = new Cliente();
 		clientenovo.setNome(nome);
 		clientenovo.setCpf(cpf);
 		clientenovo.setDataNascimentoString(dataNascimento);
-		
+		clientenovo.setTelefone(telefone);
+		clientenovo.setEmail(email);
+		clientenovo.setEndereco(endereco);
+
+
+		// adiciona o cliente e armazena seu id
 		ClientesDao cliente = new ClientesDao();
-		int idCliente  = cliente.adicionaCliente(clientenovo);
-		
+		int idCliente = cliente.adicionaCliente(clientenovo);
+		clientenovo.setId(idCliente);
 
-		
 		Carro carro = new CarrosDao().obterCarro(Integer.parseInt(carroSelect));
-		
-		AlugarDao alugar = new AlugarDao();
-		
 
-		
-	     int idAluguel =	alugar.alugaCarro(Integer.parseInt(carroSelect), idCliente, dados[0], dados[2], carro.getTarifaDia());
-		
+		AlugarDao alugar = new AlugarDao();
+
+		int idAluguel = alugar.alugaCarro(Integer.parseInt(carroSelect), idCliente, dados[0], dados[2],
+				carro.getTarifaDia());
 
 		req.setAttribute("idCliente", idCliente);
 		req.setAttribute("idAluguel", idAluguel);
 
-		
 		System.out.println(idAluguel);
 		System.out.println(idAluguel);
 

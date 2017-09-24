@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ppi.agenda.dao.CarrosDao;
 import ppi.agenda.model.Carro;
+import ppi.agenda.model.Cliente;
 
 public class DadosReserva implements Logica {
 
@@ -22,15 +23,21 @@ public class DadosReserva implements Logica {
 		dados[4] =  req.getParameter("combo");
 		
 		
-	
+		Cliente cliente = new Cliente();
+		
+		cliente.setId(Integer.parseInt(req.getParameter("clienteid")));
+		cliente.setCpf(req.getParameter("clientecpf"));
+		cliente.setNome(req.getParameter("clientenome"));
+		cliente.setEmail(req.getParameter("clienteemail"));
+		cliente.setTelefone(req.getParameter("clientetelefone"));
+		cliente.setEndereco(req.getParameter("clienteendereco"));
+		cliente.setDataNascimentoString(req.getParameter("clientenascimento"));
+		
 		CarrosDao carro = new CarrosDao();
 		
 		
 		List<Carro> listacarros = carro.obterListaCarrosDisponivel(dados[4], dados[0], dados[2]);
-		
-
-		System.out.println("Tamanho da lista: "+ listacarros.size());
-			
+					
 		if(listacarros.isEmpty()) {
 			
 			req.setAttribute("msg","Não há carro disponível ");
@@ -41,8 +48,8 @@ public class DadosReserva implements Logica {
 	
 		req.setAttribute("dados",dados);
 		req.setAttribute("carros", listacarros);
+		req.setAttribute("cliente", cliente);
 		
-		System.out.println(req.getAttribute("carros").toString());
 		
 		
 		

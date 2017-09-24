@@ -1,6 +1,6 @@
 <%@page import="ppi.agenda.dao.CarrosDao"%>
 <%@page import="ppi.agenda.dao.*"%>
-<%@page import="ppi.agenda.model.Carro"%>
+<%@page import="ppi.agenda.model.*"%>
 <%@page import="ppi.agenda.model.Carro"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*"%>
@@ -56,134 +56,97 @@
 
 
 	<div id="main" class="container-fluid">
+	<br>
+	<br>
 
-		<h3 class="page-header text-center">Dados Pessoais</h3>
+		<h3 class="page-header text-center">Escolha do carro</h3>
 
 		<form action="ControllerServlet" method='get'>
 
 
-			<div class="container">
-				<div class="form-group col-md-8 col-md-offset-2">
-					<label for="nome">Nome *</label> <input type="text"
-						class="form-control" id="nome" name="nome" />
-				</div>
+			<input type="hidden" name="logica" value="AlugarCarro" />
 
-				<div class="form-group col-md-3 col-md-offset-2">
-					<label for="cpf">CPF *</label> <input type="number"
-						class="form-control" id="cpf" name="cpf" />
-				</div>
+			<%
+				String[] dados = (String[]) request.getAttribute("dados");
+				Cliente cl = (Cliente) request.getAttribute("cliente");
+			%>
 
-				<div class="form-group col-md-3 col-md-offset-2">
-					<label for="cpf">Data nascimento *</label> <input type="text"
-						class="form-control" id="dataNascimento" name="dataNascimento" />
-				</div>
+			<input type="hidden" value=<%=cl.getNome()%> name="clientenome" />
+			<input type="hidden" value=<%=cl.getId()%> name="clienteid" /> 
+			<input
+				type="hidden" value=<%=cl.getCpf()%> name="clientecpf" /> 
+				<input
+				type="hidden" value=<%=cl.getEndereco()%> name="clienteendereco" />
+			<input type="hidden" value=<%=cl.getTelefone()%>
+				name="clientetelefone" /> 
+				<input type="hidden"
+				value=<%=cl.getEmail()%> name="clienteemail" /> 
+				<input
+				type="hidden" value=<%=cl.getDataNascimentoString()%>
+				name="clientenascimento" /> 
+				<input type="hidden"
+				
+				
+				name="dataretirada" value="<%=dados[0]%>" /><br /> <input
+				type="hidden" name="horaretirada" value="<%=dados[1]%>" /><br /> <input
+				type="hidden" name="datadevolucao" value="<%=dados[2]%>" /><br />
+			<input type="hidden" name="horadevolucao" value="<%=dados[3]%>" /><br />
 
-
-				<div class="form-group col-md-4">
-					<label for="telefone">Telefone</label> <input type="number"
-						class="form-control" id="telefone" name="telefone" />
-				</div>
-
-
-
-				<div class="form-group col-md-4 col-md-offset-2">
-					<label for="endereco">Endereço</label> <input type="text"
-						class="form-control" id="endereco" name="endereco" />
-				</div>
-
-
-
-				<div class="form-group col-md-4">
-					<label for="email">Email</label> <input type="email"
-						class="form-control" id="email" name="email" />
-				</div>
+			<div class="col-md-offset-2">
+				<div class="table-responsive">
 
 
-				<div class="form-group col-md-6 col-md-offset-2">
-					<label for="">* campos obrigatórios</label>
+					<table class="table table-sm">
+						<thead class="thead-inverse">
+							<tr>
+								<th>#</th>
+								<th>Categoria</th>
+								<th>Fabricacao</th>
+								<th>Selecionar carro</th>
+							</tr>
+						</thead>
+						<tbody>
 
-				</div>
+							<c:forEach var="carro" items="${carros}">
 
-
-				<div class="form-group col-md-6 col-md-offset-6">
-					<h2>Selecionar carro</h2>
-
-				</div>
-
-
-				<input type="hidden" name="logica" value="AlugarCarro" />
-
-
-
-				<%
-					String[] dados = (String[]) request.getAttribute("dados");
-				%>
-
-
-				<input type="hidden" name="dataretirada" value="<%=dados[0]%>" /><br />
-				<input type="hidden" name="horaretirada" value="<%=dados[1]%>" /><br />
-				<input type="hidden" name="datadevolucao" value="<%=dados[2]%>" /><br />
-				<input type="hidden" name="horadevolucao" value="<%=dados[3]%>" /><br />
-
-				<br> <br>
-
-
-				<div class="col-md-offset-2">
-					<div class="table-responsive">
-
-
-						<table class="table table-sm">
-							<thead class="thead-inverse">
 								<tr>
-									<th>#</th>
-									<th>Categoria</th>
-									<th>Fabricacao</th>
-									<th>Selecionar carro</th>
+									<td>${carro.id}</td>
+									<td>${carro.modelo}</td>
+
+									<td>${carro.categoria}</td>
+									<td>
+										<div class="form-check">
+											<label class="form-check-label"> <input
+												class="form-check-input" type="checkbox" name="carro"
+												value=${carro.id } aria-label="...">
+											</label>
+
+
+
+										</div>
+
+									</td>
+
+
 								</tr>
-							</thead>
-							<tbody>
 
-								<c:forEach var="carro" items="${carros}">
-
-									<tr>
-										<td>${carro.id}</td>
-										<td>${carro.modelo}</td>
-
-										<td>${carro.categoria}</td>
-										<td>
-											<div class="form-check">
-												<label class="form-check-label"> <input
-													class="form-check-input" type="checkbox" name="carro"
-													value=${carro.id } aria-label="...">
-												</label>
-
-
-
-											</div>
-
-										</td>
-
-
-									</tr>
-
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-
-				</div>
-
-
-
-
-				<div class="col-md-12 col-md-offset-2">
-					<br> <br>
-					<button type="submit" class="btn btn-primary">Salvar</button>
-					<a href="template.html" class="btn btn-default">Cancelar</a>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 
 			</div>
-		</form>
+
+
+
+
+			<div class="col-md-12 col-md-offset-2">
+				<br> <br>
+				<button type="submit" class="btn btn-primary">Confirmar</button>
+				<a href="ReservarCarro.jsp" class="btn btn-default">Cancelar</a>
+			</div>
+	</form>
+	
 	</div>
 
 

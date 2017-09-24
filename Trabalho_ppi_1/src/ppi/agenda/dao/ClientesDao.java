@@ -68,15 +68,17 @@ public class ClientesDao {
 	
 	
 	
-	public Cliente obterCliente(int id) {
+	public Cliente obterCliente(int id, String cpf) {
 
 
 		Cliente novoCliente = new Cliente();
 
 		try {
 
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM clientes WHERE ID = ?");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM clientes WHERE id = ? and cpf= ? ;");
 			stmt.setInt(1, id);
+			stmt.setString(2,cpf);
+
 			ResultSet rs = stmt.executeQuery();
 
 			if(rs.next()) {

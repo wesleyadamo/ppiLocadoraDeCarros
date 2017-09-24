@@ -27,8 +27,6 @@ public class ControllerServlet extends HttpServlet {
 			
 			String parametro = request.getParameter("logica");
 			
-			System.out.println(request.getParameter("dataNascimento"));
-			System.out.println(parametro);
 			String nomeDaClasse = "ppi.locadora.logica." + parametro;
 			
 			try {
