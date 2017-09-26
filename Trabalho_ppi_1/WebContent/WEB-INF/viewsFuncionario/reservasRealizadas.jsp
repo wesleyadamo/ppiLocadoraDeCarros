@@ -1,7 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +10,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRUD com Bootstrap 3</title>
+<title>Locadora de carros</title>
+
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -31,71 +32,71 @@
 	crossorigin="anonymous"></script>
 
 
+
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+
+
+
 
 </head>
 <body>
 
 
+	<%@include file="cabecalhoFuncionario.jsp"%>
 
 	<div id="main" class="container-fluid">
-
 		<br> <br>
 
-		<p class="bg-warning text-center">
-			<strong> ${msg } </strong>
-		</p>
+		<h3 class="page-header text-center">Reservas Realizadas</h3>
 
-
-		<h3 class="page-header text-center">Login</h3>
-		
-		<br>
-		<h2 class="text-center "> ${msg } </h2>
 		<br>
 
-		<form action="ControllerServlet" method="post">
+		<div class="col-md-offset-2">
+			<div class="table-responsive">
 
 
-			<div class="container">
-				<div class="form-group col-md-3 col-md-offset-4">
-					<label for="id">ID</label> <input type="number"
-						class="form-control" name="id" required />
-				</div>
+				<table class="table table-sm">
+					<thead class="thead-inverse">
+						<tr>
+							<th>#</th>
+							<th>ID Cliente</th>
+							<th>ID Carro</th>
+							<th>Data inicial</th>
+							<th>Data Final</th>
+							<th>Tarifa base</th>
+							<th>Devolução</th>
 
 
-				<div class="form-group col-md-3 col-md-offset-3">
-					<label for="exampleInputEmail1">CPF</label> <input type="text"
-						class="form-control" name="cpf">
-				</div>
+						</tr>
+					</thead>
+					<tbody>
 
+						<c:forEach var="reservas" items="${reservas}">
 
-				<div class="form-group col-md-4 col-md-offset-2"></div>
+							<tr>
+								<td>${reservas.id}</td>
+								<td>${reservas.idDoCliente}</td>
+								<td>${reservas.renavanDoCarro}</td>
+								<td>${reservas.dataInicioAluguelString}</td>
+								<td>${reservas.dataFinalAluguelString}</td>
+								<td>${reservas.tarifaBase}</td>
+								<td>
+									<form action="ControllerServlet">
+										<input type="hidden" value=${reservas.id } name="idReserva" />
+										<input type="hidden" value="Devolucao" name="logica" />
+										<button type="submit" class="btn btn-primary">Devolução</button>
+									</form>
+							</tr>
 
-
-				<input type="hidden" name="logica" value="Login" /> <input
-					type="hidden" name="tipo" value="1" />
-
-				<div class="form-group col-md-2">
-					<label><input type="checkbox" name="func" value="sim">Funcionario</label>
-				</div>
-
-
-				<div class="col-md-12">
-					<br>
-					<button type="submit" class="btn btn-primary">Prosseguir</button>
-
-					<a href="criarConta.jsp"> Criar Conta</a>
-
-				</div>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
+		</div>
 
-
-
-		</form>
 	</div>
-
-
-	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

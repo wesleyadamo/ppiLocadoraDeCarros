@@ -1,6 +1,4 @@
-<%@page import="ppi.agenda.DAO.ContatoDAO"%>
-<%@page import="ppi.agenda.model.Contato"%>
-<%@page import="java.text.SimpleDateFormat"%>
+
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,7 +27,7 @@
 <body>
 
 
-<%@include file="cabecalho.jsp" %>
+	<%@include file="WEB-INF/viewsFuncionario/cabecalhoFuncionario.jsp"%>
 
  
  
@@ -38,7 +36,7 @@
   <h3 class="page-header text-center"> Reservas </h3>
   
  
- <div class="col-sm-4 col-sm-offset-4">
+ <div class="col-sm-4 col-sm-offset-8">
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Pesquisar por código de reserva">
       <span class="input-group-btn">
@@ -70,7 +68,7 @@
 				<tbody>
 
 
-					<jsp:useBean id="dao" class="ppi.agenda.dao.CarrosDao" />
+					<jsp:useBean id="dao" class="ppi.locadora.dao.CarrosDao" />
 
 					<c:forEach var="carro" items="${dao.consultarQuantidade}">
 						<tr>
@@ -95,7 +93,7 @@
 		</div>
 	</div>
 
-
+</div>
 
  <script src="js/bootstrap.min.js"></script>
 </body>

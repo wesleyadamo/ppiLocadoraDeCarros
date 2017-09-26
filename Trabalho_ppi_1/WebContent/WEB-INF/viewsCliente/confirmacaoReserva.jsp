@@ -1,4 +1,5 @@
-
+<%@page import="ppi.locadora.model.Cliente"%>
+<%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,7 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRUD com Bootstrap 3</title>
+<title>Locadora de Carro</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -31,71 +32,49 @@
 	crossorigin="anonymous"></script>
 
 
+
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-
-</head>
 <body>
 
+	<%@include file="cabecalhoCliente.jsp"%>
 
+	<div class="container">
 
-	<div id="main" class="container-fluid">
-
-		<br> <br>
-
-		<p class="bg-warning text-center">
-			<strong> ${msg } </strong>
-		</p>
-
-
-		<h3 class="page-header text-center">Login</h3>
-		
 		<br>
-		<h2 class="text-center "> ${msg } </h2>
-		<br>
-
-		<form action="ControllerServlet" method="post">
-
-
-			<div class="container">
-				<div class="form-group col-md-3 col-md-offset-4">
-					<label for="id">ID</label> <input type="number"
-						class="form-control" name="id" required />
-				</div>
+		<div class="form-group col-md-5 col-md-offset-4">
+			<label for="exampleInputEmail1">ID do aluguel</label> <input
+				type="text" class="form-control" value=${result[0] } readonly />
+		</div>
 
 
-				<div class="form-group col-md-3 col-md-offset-3">
-					<label for="exampleInputEmail1">CPF</label> <input type="text"
-						class="form-control" name="cpf">
-				</div>
+		<div class="form-group col-md-2 col-md-offset-4">
+			<label for="exampleInputEmail1"> Data de Início</label> <input
+				class="form-control" value="${result[1]}" readonly />
+		</div>
+
+		<div class="form-group col-md-2 col-md-offset-4">
+			<label for="exampleInputEmail1"> Data de Entrega</label> <input
+				class="form-control" value="${result[2]}" readonly />
+		</div>
+
+		<div class="form-group col-md-2 col-md-offset-4">
+			<label for="exampleInputEmail1"> Tarifa por dia</label> <input
+				class="form-control" value="${result[3]}" readonly />
+		</div>
+
+		<div class="form-group col-md-4 col-md-offset-4">
+			<label for="exampleInputEmail1"> Total a ser pago na
+				devolucao</label> <input class="form-control" value="${result[4] }" readonly />
+		</div>
+
+		<div class="form-group col-md-4 col-md-offset-4">
+			<label for="exampleInputEmail1"> Multa por dia de atraso </label> <input
+				class="form-control" value="${result[5] }" readonly />
+		</div>
 
 
-				<div class="form-group col-md-4 col-md-offset-2"></div>
-
-
-				<input type="hidden" name="logica" value="Login" /> <input
-					type="hidden" name="tipo" value="1" />
-
-				<div class="form-group col-md-2">
-					<label><input type="checkbox" name="func" value="sim">Funcionario</label>
-				</div>
-
-
-				<div class="col-md-12">
-					<br>
-					<button type="submit" class="btn btn-primary">Prosseguir</button>
-
-					<a href="criarConta.jsp"> Criar Conta</a>
-
-				</div>
-			</div>
-
-
-
-		</form>
 	</div>
-
-
-	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

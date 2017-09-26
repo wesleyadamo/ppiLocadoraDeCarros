@@ -5,8 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ppi.agenda.dao.CarrosDao;
-import ppi.agenda.model.Carro;
+import ppi.locadora.dao.CarrosDao;
+import ppi.locadora.model.Carro;
 
 public class ListarCarros implements Logica{
 
@@ -20,10 +20,10 @@ public class ListarCarros implements Logica{
 		
 		// mostrar todos os carros disponiveis
 		if(tipo.equals("all")) {
-			List<Carro> carros =  carro.getObterListaCarrosCompleta();
+			List<Carro> carros =  carro.obterListaCarrosCompleta();
 			
 			req.setAttribute("carros", carros);
-			return "carrosDisponiveis.jsp";
+			return "alterarCarros.jsp";
 			
 			// quantidade de carros armazendos por modelo
 		} else if(tipo.equals("qnt")) {
@@ -34,8 +34,8 @@ public class ListarCarros implements Logica{
 			 // listar carros por categoria
 
 		} else {
-			List<Carro> carros = carro.getobterDisponivel(tipo);
-			 req.setAttribute("carros", carros);
+		//	List<Carro> carros = carro.getobterDisponivel(tipo);
+			// req.setAttribute("carros", carros);
 			 return "confirmarReserva.jsp";
 
 			

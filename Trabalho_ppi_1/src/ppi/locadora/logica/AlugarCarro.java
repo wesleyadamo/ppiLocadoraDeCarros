@@ -3,11 +3,11 @@ package ppi.locadora.logica;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ppi.agenda.dao.AlugarDao;
-import ppi.agenda.dao.CarrosDao;
-import ppi.agenda.dao.ClientesDao;
-import ppi.agenda.model.Carro;
-import ppi.agenda.model.Cliente;
+import ppi.locadora.dao.AlugarDao;
+import ppi.locadora.dao.CarrosDao;
+import ppi.locadora.dao.ClientesDao;
+import ppi.locadora.model.Carro;
+import ppi.locadora.model.Cliente;
 
 public class AlugarCarro implements Logica {
 
@@ -23,45 +23,52 @@ public class AlugarCarro implements Logica {
 		dados[3] = req.getParameter("horadevolucao");
 		dados[4] = req.getParameter("combo");
 		
-		
+		String carroSelect = req.getParameter("carro");
+
+
 		// recupera os dados do cliente
-		String nome = req.getParameter("clientenome");
+		/*String nome = req.getParameter("clientenome");
 		String cpf = req.getParameter("clientecpf");
 		String endereco = req.getParameter("clienteendereco");
 		String email = req.getParameter("clienteemail");
 		String carroSelect = req.getParameter("carro");
 		String telefone = req.getParameter("clientetelefone");
-		String dataNascimento = req.getParameter("clientenascimento");
-
+		String dataNascimento = req.getParameter("clientenascimento");*/
 		
-		Cliente clientenovo = new Cliente();
+		   Cliente cl2 = (Cliente) req.getSession(false).getAttribute("cliente");
+
+
+	/*	Cliente clientenovo = new Cliente();
 		clientenovo.setNome(nome);
 		clientenovo.setCpf(cpf);
 		clientenovo.setDataNascimentoString(dataNascimento);
 		clientenovo.setTelefone(telefone);
 		clientenovo.setEmail(email);
-		clientenovo.setEndereco(endereco);
-
+		clientenovo.setEndereco(endereco);*/
 
 		// adiciona o cliente e armazena seu id
 		ClientesDao cliente = new ClientesDao();
-		int idCliente = cliente.adicionaCliente(clientenovo);
-		clientenovo.setId(idCliente);
+		//int idCliente = cliente.adicionaCliente(clientenovo);
+		///.setId(idCliente);
+		
+		System.out.println(cl2.getNome());
+		
+		int idCliente = cliente.adicionaCliente(cl2);
+		cl2.setId(idCliente);
 
+		// obtem as informações do carro selecionado para reserva
 		Carro carro = new CarrosDao().obterCarro(Integer.parseInt(carroSelect));
-
+		
+		// reserva o carro e armazena o codigo da reserva
 		AlugarDao alugar = new AlugarDao();
-
-		int idAluguel = alugar.alugaCarro(Integer.parseInt(carroSelect), idCliente, dados[0], dados[2],
+		String [] resultAluguel = alugar.alugaCarro(Integer.parseInt(carroSelect), idCliente, dados[0], dados[2],
 				carro.getTarifaDia());
 
-		req.setAttribute("idCliente", idCliente);
-		req.setAttribute("idAluguel", idAluguel);
+		req.setAttribute("result", resultAluguel);
 
-		System.out.println(idAluguel);
-		System.out.println(idAluguel);
+		
 
-		return "confirmacaoReserva.jsp";
+		return "WEB-INF/viewsCliente/confirmacaoReserva.jsp";
 	}
 
 }
