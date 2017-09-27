@@ -34,10 +34,10 @@ public class ListarCarros implements Logica{
 			 // listar carros por categoria
 
 		} else {
-		//	List<Carro> carros = carro.getobterDisponivel(tipo);
-			// req.setAttribute("carros", carros);
-			 return "confirmarReserva.jsp";
-
+		
+			List<Carro> carros = carro.getCarrosDisponiveis();
+			 req.setAttribute("carros", carros);
+			 return "carrosDisponiveis.jsp";
 			
 		}
 	}

@@ -34,12 +34,35 @@
 	integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
 	crossorigin="anonymous"></script>
 
-
-
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
+
+<script>
+	function verifica() {
+
+		var quantos = document.form.carro.length;
+		var selecionado = 'false';
+		
+
+		for (var i = 0; i < quantos; i++) {
+
+			if (document.form.carro[i].checked) {
+				selecionado = 'true'
+			}
+
+		}
+		
+
+		if (selecionado =='false') {
+			alert("Selecione algum carro");
+			return false;
+		} else {
+			document.form.submit();
+		}
+
+	}
+</script>
 
 
 
@@ -57,7 +80,7 @@
 
 		<h3 class="page-header text-center">Escolha do carro</h3>
 
-		<form action="ControllerServlet" method='post'>
+		<form action="ControllerServlet" method='post' name="form">
 
 
 			<input type="hidden" name="logica" value="AlugarCarro" />
@@ -67,11 +90,11 @@
 				//Cliente cl = (Cliente) request.getAttribute("cliente");*/
 			%>
 
-			
-				<input type="hidden" name="dataretirada" value="<%=dados[0]%>" /><input
+
+			<input type="hidden" name="dataretirada" value="<%=dados[0]%>" /><input
 				type="hidden" name="horaretirada" value="<%=dados[1]%>" /><br /> <input
-				type="hidden" name="datadevolucao" value="<%=dados[2]%>" />
-			<input type="hidden" name="horadevolucao" value="<%=dados[3]%>" />
+				type="hidden" name="datadevolucao" value="<%=dados[2]%>" /> <input
+				type="hidden" name="horadevolucao" value="<%=dados[3]%>" />
 
 			<div class="col-md-offset-2">
 				<div class="table-responsive">
@@ -83,7 +106,7 @@
 								<th>Renavam</th>
 								<th>Modelo</th>
 								<th>Fabricacao</th>
-								<th>Tafira dia </th>
+								<th>Tafira dia</th>
 								<th>Período</th>
 								<th>Valor a pagar</th>
 								<th>Selecionar carro</th>
@@ -98,15 +121,15 @@
 									<td>${carro.modelo}</td>
 									<td>${carro.anoFabricacao}</td>
 									<td>${carro.tarifaDia }</td>
-									<td> ${dados[5] } dias </td>
-								    <td>${dados[6] }</td>
-									
-									
+									<td>${dados[5] } dias</td>
+									<td>${dados[6] }</td>
+
+
 									<td>
 										<div class="form-check">
 											<label class="form-check-label"> <input
-												class="form-check-input" type="checkbox" name="carro"
-												value=${carro.renavan } aria-label="...">
+												class="form-check-input" type="radio" name="carro"
+												value=${carro.renavan } aria-label="..." >
 											</label>
 
 
@@ -130,7 +153,7 @@
 
 			<div class="col-md-12 col-md-offset-2">
 				<br> <br>
-				<button type="submit" class="btn btn-primary">Confirmar</button>
+				<button type="button" onclick="verifica()" class="btn btn-primary">Confirmar</button>
 				<a href="ReservarCarro.jsp" class="btn btn-default">Cancelar</a>
 			</div>
 		</form>

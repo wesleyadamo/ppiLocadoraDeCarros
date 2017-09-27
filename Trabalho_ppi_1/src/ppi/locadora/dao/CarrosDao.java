@@ -49,7 +49,6 @@ public class CarrosDao {
 				stmt.setString(2, dataInicialFormatada);
 				stmt.setString(3, dataFinalFormatada);
 
-				System.out.println(stmt.toString());
 
 				ResultSet rs = stmt.executeQuery();
 
@@ -260,6 +259,47 @@ public class CarrosDao {
 		}
 		return null;
 
+	}
+
+	public List<Carro> getCarrosDisponiveis() {
+		
+		try {
+			Calendar dataHoje = Calendar.getInstance();
+			java.sql.Date dataSqlHoje = new java.sql.Date(dataHoje.getTimeInMillis());
+
+			
+			PreparedStatement stmt = this.connection.prepareStatement("select * from carros where renavan  not in (select renavanDoCarro from aluguel where ?  between dataInicioAluguel and dataFinalAluguel);");
+
+			
+			
+			stmt.setDate(1, dataSqlHoje);
+			
+			
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			
+			List<Carro> carros = new ArrayList<Carro>();
+			Carro novoCarro = new Carro();
+
+			
+			while(rs.next()) {
+				
+				System.out.println("aqui while");
+				novoCarro.setRenavan(rs.getLong("renavan"));
+				novoCarro.setCategoria(rs.getString("categoria"));
+				novoCarro.setModelo(rs.getString("modelo"));
+				novoCarro.setAnoFabricacao(rs.getString("anoFabricacao"));
+				novoCarro.setTarifaDia(rs.getDouble("tarifaDia"));
+				
+				carros.add(novoCarro);
+			}
+			return carros;
+			
+		} catch (Exception e) {
+		}
+
+		return null;
 	}
 	
 	

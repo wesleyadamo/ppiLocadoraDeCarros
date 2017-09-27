@@ -17,6 +17,10 @@
     <a class="nav-link" href="ControllerServlet?logica=ListarCarros&tipo=qnt">Carros Armazenados</a>
   </li>
   
+  <li class="nav-item">
+    <a class="nav-link" href="ControllerServlet?logica=ListarCarros&tipo=disp">Carros Disponíveis</a>
+  </li>
+  
 </ul>
     </div>
   </div>

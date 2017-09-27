@@ -1,10 +1,11 @@
-<%@page import="ppi.agenda.dao.*"%>
-<%@page import="ppi.agenda.model.Carro"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.*"%>
+<%@page import="ppi.locadora.dao.*"%>
+<%@page import="ppi.locadora.model.*"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -13,6 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Locadora de carros</title>
+
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -32,10 +34,8 @@
 	integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
 	crossorigin="anonymous"></script>
 
-
-<!--//<link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">-->
-
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 
 
 
@@ -43,66 +43,56 @@
 <body>
 
 
-	<%@include file="cabecalho.jsp"%>
+	<%@include file="cabecalhoFuncionario.jsp"%>
 
 
 
-	<br>
-	<h3 class="page-header text-center">Listagem de carros disponíveis
-	</h3>
-	<br>
+	<div id="main" class="container-fluid">
+		<br> <br>
 
-	<div class="container">
+		<h3 class="page-header text-center">Carros disponíveis</h3>
 
-		<div class="table-responsive">
-			<table class="table">
-				<thead class="thead-inverse">
-					<tr>
-						<th>#</th>
-						<th>Modelo</th>
-						<th>Categoria</th>
-						<th>Renavan</th>
-						<th>Ano fabricação</th>
-						<th>Disponivel</th>
-						
-						<th>Acão</th>
-					</tr>
-
-				</thead>
-
-				<tbody>
+			<div class="col-md-offset-2">
+				<div class="table-responsive">
 
 
-					<jsp:useBean id="dao" class="ppi.agenda.dao.CarrosDao" />
+					<table class="table table-sm">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Renavam</th>
+								<th>Modelo</th>
+								<th>Categoria</th>
+								<th>Fabricacao</th>
+								<th>Tafira dia</th>
+								
+							</tr>
+						</thead>
+						<tbody>
 
-					<c:forEach var="carro" items="${carros}">
-						<tr>
-							<td>${carro.id}</td>
-							<td>${carro.categoria}</td>
-							<td>${carro.modelo}</td>
-							<td>${carro.renavan }</td>
-							<td>${carro.anoFabricacao }</td>
-							<td>${carro.disponivel }</td>
-							
-							<td>
-							
-							<a class="btn btn-outline-warning"
-								href="edicaocarro.jsp?modelo=${carro.id }&ano=${carro.anoFabricacao }&categoria=${carro.categoria}&renavan=${carro.renavan }&tarifa=${carro.tarifaDia }">Editar</a>
-								<a class="btn btn-outline-danger"
-								href="controlador?tipo=2&id=${carro.id}">Apagar</a></td>
-						</tr>
-					</c:forEach>
+							<c:forEach var="carro" items="${carros}">
+
+								<tr>
+									<td>${carro.renavan}</td>
+									<td>${carro.modelo}</td>
+									<td>${carro.categoria}</td>
+									<td>${carro.anoFabricacao}</td>
+									<td>${carro.tarifaDia }</td>
+									
+								</tr>
+
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
 
 
 
 
 
-
-
-				</tbody>
-			</table>
-		</div>
 	</div>
+
 
 </body>
 </html>

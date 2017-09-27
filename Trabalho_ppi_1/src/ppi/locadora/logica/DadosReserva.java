@@ -37,7 +37,27 @@ public class DadosReserva implements Logica {
 		 * cliente.setTelefone(req.getParameter("clientetelefone"));
 		 * cliente.setEndereco(req.getParameter("clienteendereco"));
 		 * cliente.setDataNascimentoString(req.getParameter("clientenascimento"));
+		 * 
 		 */
+		
+		
+		java.util.Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dados[0]);
+		Calendar dataCalendar = Calendar.getInstance();
+		dataCalendar.setTime(date);
+		
+	
+		DateTime dataInicioAluguel = new DateTime( dataCalendar );
+		
+		date =  new SimpleDateFormat("dd/MM/yyyy").parse(dados[2]);
+		dataCalendar.setTime(date);
+		DateTime dataFinalAluguel = new DateTime( dataCalendar);
+		
+		
+		if(dataFinalAluguel.isBefore(dataInicioAluguel)|| dataFinalAluguel.equals(dataInicioAluguel)) {
+			req.setAttribute("msg", "Datas inválidas");
+			return "ReservarCarro.jsp";
+		}
+		
 
 		CarrosDao carro = new CarrosDao();
 
@@ -57,19 +77,7 @@ public class DadosReserva implements Logica {
 			// quando há carro disponivel
 		} else {
 			
-			java.util.Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dados[0]);
-			Calendar dataCalendar = Calendar.getInstance();
-			dataCalendar.setTime(date);
 			
-			
-			
-			
-			
-			DateTime dataInicioAluguel = new DateTime( dataCalendar );
-			
-			date =  new SimpleDateFormat("dd/MM/yyyy").parse(dados[2]);
-			dataCalendar.setTime(date);
-			DateTime dataFinalAluguel = new DateTime( dataCalendar);
 			
 			int dias = Days.daysBetween(dataInicioAluguel, dataFinalAluguel).getDays();
 			
