@@ -1,5 +1,3 @@
-<%@page import="ppi.agenda.dao.*"%>
-<%@page import="ppi.agenda.model.Carro"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -43,13 +41,13 @@
 <body>
 
 
-	<%@include file="cabecalho.jsp"%>
+	<%@include file="cabecalhoFuncionario.jsp"%>
 
 
 
 	<br>
-	<h3 class="page-header text-center">Quantidade de carros armazenados
-	</h3>
+	<h3 class="page-header text-center">Quantidade de carros
+		armazenados</h3>
 	<br>
 
 	<div class="container">
@@ -61,32 +59,22 @@
 						<th>Quantidade</th>
 						<th>Modelo</th>
 						<th>Categoria</th>
-						
+
 					</tr>
 
 				</thead>
 
 				<tbody>
 
-
-
 					<c:forEach var="carro" items="${carros}">
 						<tr>
 							<td>${carro[0]}</td>
 							<td>${carro[1]}</td>
 							<td>${carro[2]}</td>
-							
+
 							<td>
-							
-						
 						</tr>
 					</c:forEach>
-
-
-
-
-
-
 
 				</tbody>
 			</table>

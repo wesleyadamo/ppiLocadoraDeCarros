@@ -31,10 +31,10 @@ public class AdicionarCarro implements Logica {
 
 		if (add) {
 			req.setAttribute("msg", "Carro adicionado");
-			return "/viewsFuncionario/adicionarCarro.jsp";
+			return "adicionarCarro.jsp";
 		} else {
 			req.setAttribute("msg", "Renavan já cadastrado");
-			return "/viewsFuncionario/adicionarCarro.jsp";
+			return "adicionarCarro.jsp";
 
 		}
 	}

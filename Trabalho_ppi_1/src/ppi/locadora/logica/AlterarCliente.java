@@ -14,8 +14,6 @@ public class AlterarCliente implements Logica {
 		String tipo = req.getParameter("tipo");
 		String idCliente = req.getParameter("id");
 
-		
-
 		// Atualizar dados do cliente
 		if (tipo.equals("1")) {
 
@@ -26,16 +24,20 @@ public class AlterarCliente implements Logica {
 			String dataCliente = req.getParameter("dataNascimento");
 			String telefoneCliente = req.getParameter("telefone");
 
+			System.out.println("DATA: " + dataCliente);
+
 			ClientesDao cliente = new ClientesDao();
 			Cliente clienteEditado = new Cliente();
 
 			System.out.println("em: " + emailCliente);
 			clienteEditado.setId(Integer.parseInt(idCliente));
 			clienteEditado.setCpf(cpfCliente);
-			if (dataCliente != null)
+			if (!dataCliente.isEmpty()) {
 				clienteEditado.setDataNascimentoString(dataCliente);
-			else
-				clienteEditado.setDataNascimentoString("0/0/0");
+
+			} else clienteEditado.setDataNascimentoString("0/0/0000");
+			
+			
 			clienteEditado.setEmail(emailCliente);
 			clienteEditado.setEndereco(enderecoCliente);
 			clienteEditado.setNome(nomeCliente);
@@ -43,25 +45,32 @@ public class AlterarCliente implements Logica {
 
 			boolean sucesso = cliente.editaCliente(clienteEditado);
 			if (sucesso) {
+				
+				req.setAttribute("msg", "Conta alterada com sucesso");
 
+
+				if(clienteEditado.getDataNascimentoString().equals("30/11/0002")) {
+					req.setAttribute("dataNascimento", "");
+
+				}
+					
 				req.getSession(false).setAttribute("cliente", clienteEditado);
-				return "WEB-INF/viewsCliente/dadosPessoais.jsp";
+				return "dadosPessoais.jsp";
 
 			}
 			// excluir o clinete
-		} else if(tipo.equals("2")) {
+		} else if (tipo.equals("2")) {
 			ClientesDao cliente = new ClientesDao();
 			boolean sucesso = cliente.excluirCliente(Integer.parseInt(idCliente));
-			
-			if(sucesso) {
+
+			if (sucesso) {
 				req.setAttribute("msg", "Conta excluída com sucesso");
 				req.getSession(false).invalidate();
 				return "Login.jsp";
-			}else {
+			} else {
 				req.setAttribute("msg", "Erro! Cliente com reserva cadastrada!");
-				return "WEB-INF/viewsCliente/dadosPessoais.jsp";
+				return "dadosPessoais.jsp";
 			}
-			
 
 		}
 		return null;

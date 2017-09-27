@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ppi.locadora.dao.AlugarDao;
 import ppi.locadora.model.Aluguel;
+import ppi.locadora.model.Cliente;
 
 public class Devolucao implements Logica {
 
@@ -13,14 +14,17 @@ public class Devolucao implements Logica {
 
 		// pega o id da reserva
 		String id = req.getParameter("idReserva");
+		
+		String idCliente = req.getParameter("idCliente");
+
 		// obtem a reserva
 		AlugarDao aluguel = new AlugarDao();
-		Aluguel al = aluguel.obterAluguel(Integer.parseInt(id));
+		Aluguel al = aluguel.obterAluguel(Integer.parseInt(id), Integer.parseInt(idCliente));
 
 		// envia os dados do aluguel na request
 		req.setAttribute("aluguel", al);
 
-		return "WEB-INF/viewsCliente/devolucao.jsp";
+		return "devolucao.jsp";
 	}
 
 }

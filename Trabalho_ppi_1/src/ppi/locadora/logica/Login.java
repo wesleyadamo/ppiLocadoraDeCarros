@@ -1,9 +1,12 @@
 package ppi.locadora.logica;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ppi.locadora.dao.AlugarDao;
 import ppi.locadora.dao.ClientesDao;
 import ppi.locadora.model.*;
 
@@ -19,35 +22,38 @@ public class Login implements Logica {
 		String isFunc = req.getParameter("func");
 
 		ClientesDao cliente = new ClientesDao();
-		
-		 HttpSession sessao = req.getSession();
+
+		HttpSession sessao = req.getSession();
 
 		// quando o cliente já tem "conta"
 		if (tipo == 1) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			Cliente cl = cliente.obterCliente(id, cpf);
-		System.out.println("NOME DO CLIENTE: " +cl.getNome());
+			System.out.println("NOME DO CLIENTE: " + cl.getNome());
 
-            // não foi encontrado o cliente(funcionario)
+			// não foi encontrado o cliente(funcionario)
 			if (cl.getCpf() == null) {
 				req.setAttribute("msg", "ID e/ou CPF errado");
 				return "Login.jsp";
-				
+
 				// funcionário
 			} else if (isFunc != null) {
 
-				req.setAttribute("cliente", cl);
-		         sessao.setAttribute("cliente", cl);
+				sessao.setAttribute("cliente", cl);
+				AlugarDao aluguel = new AlugarDao();
 
+				List<Aluguel> reservas = aluguel.obterListaAlugueisCompleta();
+				req.setAttribute("reservas", reservas);
 
-		         return "WEB-INF/viewsFuncionario/reservasRealizadas.jsp";
-		         
-		         //cliente
+				return "reservasRealizadas.jsp";
+
+				// cliente
 			} else if (isFunc == null) {
-				req.setAttribute("cliente", cl);
-		         sessao.setAttribute("cliente", cl);
+				sessao.setAttribute("cliente", cl);
+				System.out.println("AQUI CLIENTE COM CONTA: " + sessao.getAttribute("cliente").toString());
 
-		         return "WEB-INF/viewsCliente/ReservarCarro.jsp";			}
+				return "ReservarCarro.jsp";
+			}
 
 			// cria um novo cliente
 		} else {
@@ -71,19 +77,21 @@ public class Login implements Logica {
 			cl.setId(idcliente);
 
 			if (isFunc != null) {
-				req.setAttribute("cliente", cl);
-		         sessao.setAttribute("cliente", cl);
 
+				sessao.setAttribute("cliente", cl);
 
-				return "WEB-INF/viewsFuncionario/reservasRealizadas.jsp";
+				AlugarDao aluguel = new AlugarDao();
+
+				List<Aluguel> reservas = aluguel.obterListaAlugueisCompleta();
+				req.setAttribute("reservas", reservas);
+				return "reservasRealizadas.jsp";
 
 			} else {
 
+				sessao.setAttribute("cliente", cl);
+				System.out.println("AQUI CLIENTE COM CONTA");
 
-				req.setAttribute("cliente", cl);
-		        sessao.setAttribute("cliente", cl);
-
-				return "WEB-INF/viewsCliente/ReservarCarro.jsp";
+				return "ReservarCarro.jsp";
 
 			}
 

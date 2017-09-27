@@ -17,10 +17,12 @@ public class ReservasRealizadas implements Logica{
 		AlugarDao alugar = new AlugarDao();
 		List<Aluguel> reservas = alugar.obterListaAlugueisCompleta();
 		
+		System.out.println("TAMANHO DA LISTA RESERVAS: "+ reservas.size());
+		
 		
 		req.setAttribute("reservas", reservas);
 		
-		return "WEB-INF/viewsFuncionario/reservasRealizadas.jsp";
+		return "reservasRealizadas.jsp";
 	}
 
 }

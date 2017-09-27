@@ -1,6 +1,4 @@
-<%@page import="ppi.agenda.DAO.ContatoDAO"%>
-<%@page import="ppi.agenda.model.Cliente"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="ppi.locadora.model.Cliente"%>
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -34,15 +32,14 @@
 	crossorigin="anonymous"></script>
 
 
-
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <script>
 	$(function() {
-		$("#calendario").datepicker(
+		$("#dataretirada").datepicker(
 				{
+					
 					dateFormat : 'dd/mm/yy',
 					dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta',
 							'Quinta', 'Sexta', 'Sábado', 'Domingo' ],
@@ -57,26 +54,6 @@
 				});
 	});
 </script>
-
-
-<script>
-  $(function()){
-	  alert("awuo");
-
-	  $("#msg"){
-		  alert("awuo");
-			var opc = document.getElementById("msg").value;
-			
-			if(msg == "erro"){
-				alert("erross")
-			}
-
-	  }
-  }
-
-</script>
-
-
 
 
 <script>
@@ -98,52 +75,39 @@
 	});
 </script>
 
-
 <script>
-	function optionChange() {
+	function optionCheck() {
+
 		var opc = document.getElementById("combo").value;
-		var cat;
+		
+		alert(opc);
 
-		if (opc == 'e') {
-
+		if (opc == 'economico') {
 			document.getElementById("tarifa").value = 70;
-			cat = "economico";
 
-		} else if (opc == 'i') {
+		} else if (opc == 'intermediario') {
 			document.getElementById("tarifa").value = 90;
-			cat = "intermediario";
+			alert("aqui i");
 
-		} else if (opc == 's') {
+		} else if (opc == 'suv') {
 			document.getElementById("tarifa").value = 120
-			cat = "suv";
 		} else {
 			document.getElementById("tarifa").value = 150;
-			cat = "executivo";
 
 		}
 
-		return cat;
 	}
 </script>
-
-
-
-
-
 
 
 </head>
 <body>
 
-	<%@include file="cabecalho.jsp"%>
-
-
-
-
+	<%@include file="cabecalhoCliente.jsp"%>
 
 	<div id="main" class="container-fluid">
 
-		<br> <br>
+		<br> 
 
 		<p class="bg-warning text-center">
 			<strong> ${msg } </strong>
@@ -156,66 +120,53 @@
 
 
 			<div class="container">
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-6 offset-md-2">
 					<label for="datare">Data de retirada</label> <input type="text"
-						class="form-control" id="calendario" name="dataretirada" required />
+						class="form-control" id="dataretirada" name="dataretirada" required placeholder="28/09/2017" />
 				</div>
 
 
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-6 offset-md-2">
 					<label for="exampleInputEmail1">Horário de retirada</label> <input
 						type="text" class="form-control" id="horaretirada"
-						name="horaretirada" placeholder="22:00">
+						name="horaretirada" placeholder="22:00" required>
 				</div>
 
 
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-6 offset-md-2">
 					<label for="exampleInputEmail1">Data de devolução</label> <input
 						type="text" class="form-control" name="datadevolucao"
-						id="datadevolucao">
+						id="datadevolucao" placeholder="10/10/2017" required>
 				</div>
 
 
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-6 offset-md-2">
 					<label for="exampleInputEmail1">Horário de devolução</label> <input
 						type="text" class="form-control" name="horadevolucao"
-						id="horadevolucao" name=placeholder="22:00">
+						id="horadevolucao" name="horadevolucao" placeholder="22:00" required>
 				</div>
 
 
 
-				<div class="form-group col-md-6">
+				<div class="col-md-6 offset-md-2">
 					<label for="">Tipo de carro</label> <select class="form-control"
-						id="combo " name="combo" id="combo">
-						<option> Selecione o tipo </option>
-						<option value="economico">Econômico</option>
-						<option value="intermediario">Intermediário</option>
-						<option value="suv">SUV</option>
-						<option value="executivo">Executivo</option>
+						 name="combo" id="combo"  onchange="optionCheck()">
+						<option value="economico">Econômico (70 reais dia)</option>
+						<option value="intermediario">Intermediário (90 reais dia)</option>
+						<option value="suv">SUV (120 reais dia)</option>
+						<option value="executivo">Executivo (150 reais dia)</option>
 					</select>
+					
+					
 				</div>
-
+				
 				<br> <input type="hidden" name="logica" value="DadosReserva" />
-
-				<%
-					Cliente cl = (Cliente) request.getAttribute("cliente");
-							
-				%>
+				
+				<input type="hidden" name="tarifa" id="tarifa" value="70" />
 
 
-				<input type="hidden" value=<%=cl.getNome() %> name="clientenome" /> <input
-					type="hidden" value=<%=cl.getId() %> name="clienteid" /> <input
-					type="hidden" value=<%=cl.getCpf() %> name="clientecpf" /> <input
-					type="hidden" value=<%=cl.getEndereco() %> name="clienteendereco" /> <input
-					type="hidden" value=<%=cl.getTelefone() %> name="clientetelefone" /> <input
-					type="hidden" value=<%=cl.getEmail() %>name="clienteemail" /> <input
-					type="hidden" value=<%=cl.getDataNascimentoString() %> name="clientenascimento" />
-
-
-
-
-				<div class="col-md-12">
-					<br> <br>
+				<div class="col-md-12 offset-md-2">
+					
 					<button type="submit" class="btn btn-primary">Prosseguir</button>
 
 				</div>

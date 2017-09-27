@@ -54,38 +54,35 @@
 		<h2 class="text-center "> ${msg } </h2>
 		<br>
 
-		<form action="ControllerServlet" method="post">
+		<form action="ControllerServlet" method="get">
 
 
 			<div class="container">
-				<div class="form-group col-md-3 col-md-offset-4">
+				<div class="form-group col-md-3 offset-sm-4">
 					<label for="id">ID</label> <input type="number"
 						class="form-control" name="id" required />
 				</div>
 
 
-				<div class="form-group col-md-3 col-md-offset-3">
+				<div class="form-group col-md-3 offset-md-4">
 					<label for="exampleInputEmail1">CPF</label> <input type="text"
 						class="form-control" name="cpf">
 				</div>
 
 
-				<div class="form-group col-md-4 col-md-offset-2"></div>
-
-
 				<input type="hidden" name="logica" value="Login" /> <input
 					type="hidden" name="tipo" value="1" />
 
-				<div class="form-group col-md-2">
-					<label><input type="checkbox" name="func" value="sim">Funcionario</label>
+				<div class="form-group col-md-2 offset-md-4">
+					<label><input type="checkbox" name="func" value="sim">Funcionário</label>
 				</div>
 
 
-				<div class="col-md-12">
+				<div class="col-md-12 offset-md-4">
 					<br>
 					<button type="submit" class="btn btn-primary">Prosseguir</button>
 
-					<a href="criarConta.jsp"> Criar Conta</a>
+					<a href="criarConta.jsp" class="btn btn-danger"> Criar Conta</a>
 
 				</div>
 			</div>

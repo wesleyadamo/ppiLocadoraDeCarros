@@ -68,7 +68,7 @@ public class AlugarCarro implements Logica {
 
 		
 
-		return "WEB-INF/viewsCliente/confirmacaoReserva.jsp";
+		return "confirmacaoReserva.jsp";
 	}
 
 }

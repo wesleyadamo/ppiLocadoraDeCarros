@@ -17,7 +17,7 @@ public class RemoverCarro implements Logica {
 
 		
 		// remove carro de acordo com o id do mesmo
-		String id = req.getParameter("id");
+		String id = req.getParameter("renavan");
 
 		CarrosDao carro = new CarrosDao();
 		carro.removerCarro(Integer.parseInt(id));
@@ -25,7 +25,7 @@ public class RemoverCarro implements Logica {
 		List<Carro> carros =  carro.obterListaCarrosCompleta();
 		
 		req.setAttribute("carros", carros);
-		return "WEB-INF/viewsFuncionario/alterarCarros.jsp";
+		return "alterarCarros.jsp";
 		
 
 	}

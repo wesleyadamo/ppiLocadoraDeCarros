@@ -24,7 +24,7 @@ public class ConfirmacaoDevolucao implements Logica {
 		List<Aluguel> reservas = al.obterListaAlugueisCompleta();
 		req.setAttribute("reservas", reservas);
 
-		return "WEB-INF/viewsFuncionario/reservasRealizadas.jsp";
+		return "reservasRealizadas.jsp";
 	}
 
 }

@@ -1,9 +1,6 @@
-<%@page import="ppi.agenda.dao.CarrosDao"%>
-<%@page import="ppi.agenda.dao.*"%>
-<%@page import="ppi.agenda.model.*"%>
-<%@page import="ppi.agenda.model.Carro"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.*"%>
+<%@page import="ppi.locadora.dao.*"%>
+<%@page import="ppi.locadora.model.*"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -51,46 +48,30 @@
 <body>
 
 
-	<%@include file="cabecalho.jsp"%>
+	<%@include file="cabecalhoCliente.jsp"%>
 
 
 
 	<div id="main" class="container-fluid">
-	<br>
-	<br>
+		<br> <br>
 
 		<h3 class="page-header text-center">Escolha do carro</h3>
 
-		<form action="ControllerServlet" method='get'>
+		<form action="ControllerServlet" method='post'>
 
 
 			<input type="hidden" name="logica" value="AlugarCarro" />
 
 			<%
 				String[] dados = (String[]) request.getAttribute("dados");
-				Cliente cl = (Cliente) request.getAttribute("cliente");
+				//Cliente cl = (Cliente) request.getAttribute("cliente");*/
 			%>
 
-			<input type="hidden" value=<%=cl.getNome()%> name="clientenome" />
-			<input type="hidden" value=<%=cl.getId()%> name="clienteid" /> 
-			<input
-				type="hidden" value=<%=cl.getCpf()%> name="clientecpf" /> 
-				<input
-				type="hidden" value=<%=cl.getEndereco()%> name="clienteendereco" />
-			<input type="hidden" value=<%=cl.getTelefone()%>
-				name="clientetelefone" /> 
-				<input type="hidden"
-				value=<%=cl.getEmail()%> name="clienteemail" /> 
-				<input
-				type="hidden" value=<%=cl.getDataNascimentoString()%>
-				name="clientenascimento" /> 
-				<input type="hidden"
-				
-				
-				name="dataretirada" value="<%=dados[0]%>" /><br /> <input
+			
+				<input type="hidden" name="dataretirada" value="<%=dados[0]%>" /><input
 				type="hidden" name="horaretirada" value="<%=dados[1]%>" /><br /> <input
-				type="hidden" name="datadevolucao" value="<%=dados[2]%>" /><br />
-			<input type="hidden" name="horadevolucao" value="<%=dados[3]%>" /><br />
+				type="hidden" name="datadevolucao" value="<%=dados[2]%>" />
+			<input type="hidden" name="horadevolucao" value="<%=dados[3]%>" />
 
 			<div class="col-md-offset-2">
 				<div class="table-responsive">
@@ -99,9 +80,12 @@
 					<table class="table table-sm">
 						<thead class="thead-inverse">
 							<tr>
-								<th>#</th>
-								<th>Categoria</th>
+								<th>Renavam</th>
+								<th>Modelo</th>
 								<th>Fabricacao</th>
+								<th>Tafira dia </th>
+								<th>Período</th>
+								<th>Valor a pagar</th>
 								<th>Selecionar carro</th>
 							</tr>
 						</thead>
@@ -110,15 +94,19 @@
 							<c:forEach var="carro" items="${carros}">
 
 								<tr>
-									<td>${carro.id}</td>
+									<td>${carro.renavan}</td>
 									<td>${carro.modelo}</td>
-
-									<td>${carro.categoria}</td>
+									<td>${carro.anoFabricacao}</td>
+									<td>${carro.tarifaDia }</td>
+									<td> ${dados[5] } dias </td>
+								    <td>${dados[6] }</td>
+									
+									
 									<td>
 										<div class="form-check">
 											<label class="form-check-label"> <input
 												class="form-check-input" type="checkbox" name="carro"
-												value=${carro.id } aria-label="...">
+												value=${carro.renavan } aria-label="...">
 											</label>
 
 
@@ -145,8 +133,8 @@
 				<button type="submit" class="btn btn-primary">Confirmar</button>
 				<a href="ReservarCarro.jsp" class="btn btn-default">Cancelar</a>
 			</div>
-	</form>
-	
+		</form>
+
 	</div>
 
 

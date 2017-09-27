@@ -65,7 +65,7 @@ public class AlugarDao {
 	// extra que e o valor exato
 	// a ser pago por quem alugou na hora de devolver, tera tbm as informações como
 	// o carro alugado e o nome e cpf de quem alugou
-	public Aluguel obterAluguel(int idTransacao) {
+	public Aluguel obterAluguel(int idTransacao , int idCliente) {
 
 		Aluguel novoAluguel = new Aluguel();
 
@@ -73,8 +73,9 @@ public class AlugarDao {
 			PreparedStatement stmt;
 			ResultSet rs;
 
-			stmt = this.connection.prepareStatement("SELECT * FROM aluguel WHERE id = ?");
+			stmt = this.connection.prepareStatement("SELECT * FROM aluguel WHERE id = ? and idDoCliente = ? ;");
 			stmt.setInt(1, idTransacao);
+			stmt.setInt(2, idCliente);
 			rs = stmt.executeQuery();
 
 			System.out.println("aqui1");
